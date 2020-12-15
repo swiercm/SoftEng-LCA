@@ -1,3 +1,5 @@
+import networkx as nx
+
 class Node:
     def __init__(self, key):
         self.key = key
@@ -50,3 +52,20 @@ print ("LCA(4, 5) = %d" %findLCA(root, 4, 5))
 print ("LCA(1, 2) = %d" %findLCA(root, 1, 2))
 print ("LCA(3, 2) = %d" %findLCA(root, 3, 2))
 print ("LCA(5, 7) = %d" %findLCA(root, 5, 7))
+
+# A bit of a lazy approach, 
+# I found a library that works great with graphs and has a lot of functions associated with graphs.
+graph = nx.DiGraph()
+graph.add_edges_from([(1, 2), (1, 3), (1, 4), (1, 5), (2, 4), (3, 4), (3, 5), (4, 5)])
+
+#   ____(1)_______
+#  V   /   \      \
+# (2)  |  (3)      |
+#  \   V  V  \     |
+#   -->(4)    |    |
+#        \    V   /
+#         -->(5)<-
+
+print ("LCA_DAG(2, 3) = %d" %nx.lowest_common_ancestor(graph, 2, 3))
+print ("LCA_DAG(2, 5) = %d" %nx.lowest_common_ancestor(graph, 2, 5))
+print ("LCA_DAG(1, 4) = %d" %nx.lowest_common_ancestor(graph, 1, 4))
